@@ -22,8 +22,6 @@ function init () {
   })
 }
 
-
-
 document.addEventListener('DOMContentLoaded', init)
 
 function readComment (e) {
@@ -35,16 +33,23 @@ function readComment (e) {
   writeComment(userComment)
 }
 
+var map
+
 function initMap () {
-  var southeastUS = {lat: 33.247875, lng: -83.441162};
-  var map = new google.maps.Map(
-    document.getElementById('map'), {zoom: 6, center: southeastUS})
-  var marker = new google.maps.Marker({position: getCapitals, map: map})
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 6, 
+    center: new google.maps.LatLng(33.247875, -83.441162)
+  })
+
+  var marker
+  for (i=0; i < statesArray.length; i++) {
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(statesArray[i].lat, statesArray[i].long),
+      map: map
+    })
+  }
 }
 
-function getCapitals () {
-  // needs to read array and assign position at each
-}
 
 function writeComment (userComment) {
   // needs to write the comment to the fire database
