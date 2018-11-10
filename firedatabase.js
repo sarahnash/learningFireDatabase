@@ -12,7 +12,6 @@ function init () {
   document.getElementById('submitBtn').addEventListener('click', readComment)
   database.ref('comments/').on('value', function (snapshot) {
     snapshot.forEach(function (item) {
-      console.log(item.val())
       document.getElementById('object').innerHTML += `<div class="card" style="width: calc(100% - 20px); margin: 10px;">
       <div class="card-body">
         <h5 class="card-title">${item.val().username}</h5>
@@ -23,6 +22,8 @@ function init () {
   })
 }
 
+
+
 document.addEventListener('DOMContentLoaded', init)
 
 function readComment (e) {
@@ -32,6 +33,17 @@ function readComment (e) {
   var userComment = document.getElementById('textarea').value
   console.log(userComment)
   writeComment(userComment)
+}
+
+function initMap () {
+  var southeastUS = {lat: 33.247875, lng: -83.441162};
+  var map = new google.maps.Map(
+    document.getElementById('map'), {zoom: 6, center: southeastUS})
+  var marker = new google.maps.Marker({position: getCapitals, map: map})
+}
+
+function getCapitals () {
+  // needs to read array and assign position at each
 }
 
 function writeComment (userComment) {
